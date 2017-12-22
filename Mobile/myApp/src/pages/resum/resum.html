@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>        
+<div class="space">
+    <!--Management-->
+    <form class="form-welcome management">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab">Management</a>
+            </li>
+        </ul>
+        <div>
+            <legend>Matriculate Student in to a subject</legend>
+            <div class="form-group">
+                <label>Select Subject</label>
+                <select class="form-control" #selectedSubject>
+                    <option *ngFor="let subject of copySubjects">{{subject.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Select Student</label>
+                <select class="form-control" #selectedStudent>
+                    <option *ngFor="let student of copyStudents">{{student.name}}</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-danger" (click)="matriculate(selectedSubject.value, selectedStudent.value)">Free Matriculate</button>
+
+            <!--Details-->
+            <div class="student-detail jumbotron">
+                <h1>Subjects:</h1>
+
+                <div class="form-group-filter">
+                    <label>Select Filter:</label>
+                    <select class="form-control" (change)="onChange()" #selectedTag>
+                        <option *ngFor="let tag of filterTags">{{tag.option}}</option>
+                    </select>
+
+                    <select class="form-control" (change)="onChange()" #selectedOption>
+                        <option [hidden]="!filter[selectedTag.value]" *ngFor="let filter of optionFilter">{{filter[selectedTag.value]}}</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Default input" id="inputDefault" [hidden]="selectedOption.value != 'Specific name'"
+                        #filterName>
+
+                    <button type="button" class="btn btn-outline-success" (click)="orderSubjectBy(selectedTag.value, selectedOption.value, filterName.value)">Apply</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">Reset</button>
+                </div>
+                <div class="subject-list ">
+                    <div class="subject" *ngFor="let subject of subjects">
+                        <app-subjectDetail [subject]="subject"></app-subjectDetail>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</ion-content>
+        
