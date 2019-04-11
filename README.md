@@ -1,2 +1,2 @@
-# FQ_EA
-FQ_EA
+# Quick and easy implementation using Ionic 2
+Quick and easy implementation using Ionic 2 - FQ_EA
